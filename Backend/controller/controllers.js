@@ -1,10 +1,17 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-const JWT_SECRET = 'tu_secreto_aqui'; // Mejor usar .env
+const JWT_SECRET = 'your_jwt_secret'; // Mejor usar .env
 
 import connect from "../data/DB/connection.js";
 
 const {pool} = connect;
+
+const generarHash = async (password) => {
+  const saltRounds = 10;
+  const hash = await bcrypt.hash(password, saltRounds);
+  return hash;
+};
+
 
 const dysplayHome = (request, response) => {
     response.status(200).send("Welcome to the Home Page");
@@ -58,7 +65,7 @@ const getUserById = (request, response) => {
 };
 
 const createUser = async (request, response) => {
-    const { name, email, password } = req.body;
+    const { name, email, password } = request.body;
 
     try {
         // Usar tu función para generar el hash
@@ -69,10 +76,10 @@ const createUser = async (request, response) => {
             [name, email, hashedPassword]
         );
 
-        res.status(201).json({ message: "User created", id: results.rows[0].id });
+        response.status(201).json({ message: "User created", id: results.rows[0].id });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Server error" });
+        response.status(500).json({ message: "Server error" });
     }
 };
 
@@ -103,13 +110,8 @@ const deleteUser = (request, response) => {
   })
 }
 
-const generarHash = async (password) => {
-  const saltRounds = 10;
-  const hash = await bcrypt.hash(password, saltRounds);
-  return hash;
-};
-
 export default {
+    dysplayHome,
     getUsers,
     getUserById,
     createUser,

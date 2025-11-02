@@ -27,7 +27,6 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-
 app.get("/protected", verifyToken, (req, res) => {
   res.status(200).json({ message: "Protected data accessed", user: req.user });
 });
