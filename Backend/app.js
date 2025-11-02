@@ -27,12 +27,12 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// Routes
 
 app.get("/protected", verifyToken, (req, res) => {
   res.status(200).json({ message: "Protected data accessed", user: req.user });
 });
 
+app.get("/",controllers.dysplayHome)
 app.post("/signin", controllers.loginUser)
 app.get('/users', controllers.getUsers)
 app.get('/users/:id', controllers.getUserById)

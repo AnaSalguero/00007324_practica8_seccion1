@@ -6,8 +6,8 @@ import connect from "../data/DB/connection.js";
 
 const {pool} = connect;
 
-const signin = (request, response) => {
-
+const dysplayHome = (request, response) => {
+    response.status(200).send("Welcome to the Home Page");
 };
 
 const loginUser = (request, response) => {
