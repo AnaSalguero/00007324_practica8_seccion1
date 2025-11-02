@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-const JWT_SECRET = 'your_jwt_secret'; // Mejor usar .env
+const JWT_SECRET = 'your_jwt_secret'; 
 
 import connect from "../data/DB/connection.js";
 
